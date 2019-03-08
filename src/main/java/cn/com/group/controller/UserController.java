@@ -25,7 +25,7 @@ public class UserController {
 	 //获取用户信息
 	 @GetMapping("/user/{id}")
 	 public UserPo getUserPo(@PathVariable("id") long id) {
-		 	ServiceInstance serviceInstance= discoveryClient.getInstances("wmcuser").get(0);
+		 	ServiceInstance serviceInstance= discoveryClient.getInstances("WMCUSER").get(0);
 		 	logger.error("serviceInstance.getUri():"+serviceInstance.getUri());
 		 	logger.error("serviceInstance.getUri():"+serviceInstance.getHost());
 		 	logger.error("serviceInstance.getUri():"+serviceInstance.getUri());
