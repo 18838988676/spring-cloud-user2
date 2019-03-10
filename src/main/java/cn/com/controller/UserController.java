@@ -34,7 +34,7 @@ public class UserController {
 	 
 	 //获取用户信息
 	 @GetMapping("/user/{id}")
-	 public User getUserPo(@PathVariable("id") long id) {
+	 public User getUserPo(@PathVariable("id") Integer id) {
 		 	ServiceInstance serviceInstance= discoveryClient.getInstances("WMCUSER").get(0);
 		 	logger.error("serviceInstance.getUri():"+serviceInstance.getUri());
 		 	logger.error("serviceInstance.getUri():"+serviceInstance.getHost());
@@ -51,10 +51,22 @@ public class UserController {
 	 @PostMapping("/addUser")
 	 public Map<String, Object> addUser(@RequestBody User user){
 		 Map<String, Object> map=new HashedMap();
-		 map.put("msg", "添加用户信息详情如下："+user+"，添加成功");
+		 map.put("msg2", "添加用户信息详情如下："+user+"，添加成功");
 		 return map;
 	 }
 	 
-	
+	 //获取用户信息
+	 @GetMapping("/user333")
+	 public Map<String, Object> findById() {
+		 Integer id=000;
+		 Map<String, Object> map=new HashedMap();
+		 	User userPo=new User();
+		 	userPo.setId(id);
+		 	userPo.setLevel((int) (id%2+1));
+		 	userPo.setUserName("利用feign提供的声明是方法调用，并根据用户id："+id);
+		 	userPo.setNote("note_"+id);
+		 	map.put("msg", "根据用户id，获得用户信息如下："+userPo);
+		 	return map;
+	 }
 
 }
