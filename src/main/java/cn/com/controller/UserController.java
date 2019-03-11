@@ -12,14 +12,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-
-
-
-
-
-
 
 import cn.com.pojo.User;
 
@@ -68,5 +63,52 @@ public class UserController {
 		 	map.put("msg", "根据用户id，获得用户信息如下："+userPo);
 		 	return map;
 	 }
+	 
+		
+		 @PostMapping("/update/{userName}")        // URL参数							// 请求头参数
+		 public  Map<String,Object>  updateUser(@PathVariable("userName") String userName,@RequestHeader("id") Integer id){
+			 Map<String, Object> map=(Map<String, Object>) new HashedMap();
+			 map.put("msg", "修改用户姓名："+userName+"用户id:"+id);
+			 return map;
+		 }
+		 
+		 
+		 /*短路测试--------------------------------------------------------start*/
+		 @GetMapping("/timeout")
+		 public String timeout() {
+			    // 生成一个3000之内的随机数
+			 long ms=(long)(3000L*Math.random());
+			 	try {
+					Thread.sleep(ms);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			 	return "success2222222222熔断测试";
+			}
+		 
+		 
+		 @GetMapping("/circuitBreaker1timeout")
+		 public String circuitBreaker1timeout() {
+			 long ms=(long)(3000L*Math.random());
+			 	try {
+					Thread.sleep(ms);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			 	return "2测试成功！！ribbon短路测试";
+		 }
+		 
+		 
+		 @GetMapping("/circuitBreaker2timeout")
+		 public String circuitBreaker2timeout() {
+			 long ms=(long)(3000L*Math.random());
+			 	try {
+					Thread.sleep(ms);
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
+			 	return "2测试成功！！feign短路测试";
+		 }
+		 /*短路测试--------------------------------------------------------end*/	 
 
 }
