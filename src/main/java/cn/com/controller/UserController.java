@@ -46,19 +46,19 @@ public class UserController {
 	 @PostMapping("/addUser")
 	 public Map<String, Object> addUser(@RequestBody User user){
 		 Map<String, Object> map=new HashedMap();
-		 map.put("msg2", "添加用户信息详情如下："+user+"，添加成功");
+		 map.put("msg2", "22添加用户信息详情如下："+user+"，添加成功");
 		 return map;
 	 }
 	 
-	 //获取用户信息
-	 @GetMapping("/user333")
-	 public Map<String, Object> findById() {
+	 //自动获取用户信息
+	 @GetMapping("/userinfo")
+	 public Map<String, Object> findInfo() {
 		 Integer id=000;
 		 Map<String, Object> map=new HashedMap();
 		 	User userPo=new User();
 		 	userPo.setId(id);
 		 	userPo.setLevel((int) (id%2+1));
-		 	userPo.setUserName("利用feign提供的声明是方法调用，并根据用户id："+id);
+		 	userPo.setUserName("111利用feign提供的声明是方法调用，并根据用户id："+id);
 		 	userPo.setNote("note_"+id);
 		 	map.put("msg", "根据用户id，获得用户信息如下："+userPo);
 		 	return map;
